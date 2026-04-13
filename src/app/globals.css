@@ -1,0 +1,479 @@
+@import "tailwindcss";
+
+/* ================================================
+   CINEMATIC VELOCITY — KINETIC NOIR
+   Global CSS — Tailwind v4 CSS-first config
+   ================================================ */
+
+@theme {
+  /* =============================================
+     1. COLOR SYSTEM — Surfaces (Tonal Carving)
+     ============================================= */
+
+  /* Voids & Surfaces */
+  --color-surface-void: #050505; /* Shutter void for cinematic breathing */
+  --color-surface-container-lowest: #0e0e0e; /* Inputs / deepest recessed layer */
+  --color-surface: #131313; /* Base application canvas */
+  --color-surface-container-low: #111111; /* Flat cards, content areas */
+  --color-surface-container: #222222; /* Standard elevated surface */
+  --color-surface-container-high: #2a2a2a; /* Interactive modules */
+  --color-surface-container-highest: #333333; /* Tooltips / floating layers */
+  --color-surface-bright: #1c1c1c; /* Hover state on lists */
+
+  /* Glass overlay (Glassmorphism Navbar / Modals) */
+  --color-glass-overlay: rgba(19, 19, 19, 0.6);
+
+  /* =============================================
+     2. BRAND — Primary / Accent
+     ============================================= */
+  --color-primary: #df2531; /* Ignition Red — the signal */
+  --color-primary-light: #ffb3ae; /* Ghost gradient start */
+  --color-on-primary: #ffffff;
+  --color-outline: #5c3f3d;
+  --color-outline-variant: rgba(92, 63, 61, 0.2);
+
+  /* =============================================
+     3. TEXT — On-surface tokens
+     ============================================= */
+  --color-on-surface: #e6e6e6;
+  --color-on-surface-muted: rgba(255, 255, 255, 0.7);
+  --color-on-surface-dim: rgba(255, 255, 255, 0.4);
+
+  /* =============================================
+     4. TYPOGRAPHY
+     Font vars injected by next/font at :root — see layout.tsx
+     --font-sans    → Space Grotesk (UI / body default)
+     --font-body    → Cardo        (accent / luxury text)
+     --font-display → Space Grotesk (headings / branding)
+     ============================================= */
+  --font-display: var(--font-sans); /* Space Grotesk — headings / branding */
+  --font-body: var(--font-body); /* Cardo — accent / luxury text */
+  --font-hud: var(--font-sans); /* Space Grotesk — telemetry labels */
+
+  /* Typesetting scale */
+  --text-display-lg: 5rem; /* 80px */
+  --text-display-lg--line-height: 1;
+  --text-display-lg--letter-spacing: 0.1em;
+
+  --text-display-md: 3.5rem; /* 56px */
+  --text-display-md--line-height: 1.1;
+  --text-display-md--letter-spacing: 0.12em;
+
+  --text-headline: 2.5rem; /* 40px */
+  --text-headline--line-height: 1.2;
+  --text-headline--letter-spacing: 0.08em;
+
+  --text-body: 1.125rem; /* 18px */
+  --text-body--line-height: 1.6;
+
+  --text-label-sm: 0.6875rem; /* 11px */
+  --text-label-sm--line-height: 1;
+  --text-label-sm--letter-spacing: 0.12em;
+
+  --text-hud: 0.625rem; /* 10px — Telemetry */
+  --text-hud--letter-spacing: 0.15em;
+
+  /* =============================================
+     5. SPACING — Cinematic rhythm
+     ============================================= */
+  --spacing-tight: 0.35rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  --spacing-2xl: 8.5rem;
+
+  /* =============================================
+     6. SHAPE — 0px radius by default
+     ============================================= */
+  --radius-none: 0px; /* Machine mandate — non-negotiable */
+  --radius-sm: 4px; /* Mobile touch-safety fallback only */
+
+  /* =============================================
+     7. EFFECTS — Glows, Glass, Gradients
+     ============================================= */
+  --blur-glass: 20px;
+
+  /* Ghost Gradient (Hero / CTA backgrounds) */
+  --background-image-ghost-gradient: radial-gradient(
+    circle,
+    rgba(255, 179, 174, 0.15) 0%,
+    rgba(223, 37, 49, 1) 100%
+  );
+
+  /* Glow effects */
+  --shadow-glow-primary: 0px 0px 12px #df2531;
+  --shadow-glow-hover: 0px 0px 8px rgba(223, 37, 49, 0.3);
+  --shadow-ignition: 0px 0px 5px #df2531;
+  --shadow-ambient: 0px 0px 40px rgba(255, 255, 255, 0.04);
+}
+
+/* ================================================
+   BASE LAYER
+   ================================================ */
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans); /* Space Grotesk — default UI font */
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings — machine mandate: ALL CAPS, display font */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-on-surface);
+  }
+
+  /* Body text — poetic italic */
+  p {
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+/* ================================================
+   COMPONENT LAYER
+   ================================================ */
+@layer components {
+  /* --- Buttons --- */
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-none);
+    font-family: var(--font-hud);
+    font-weight: 700;
+    font-size: var(--text-label-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    box-shadow: var(--shadow-glow-primary);
+  }
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: var(--color-on-surface);
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-none);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: var(--font-hud);
+    font-weight: 700;
+    font-size: var(--text-label-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-glow-hover);
+  }
+  .btn-secondary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Tertiary — Text only, underline expands from center */
+  .btn-tertiary {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-label-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-on-surface);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 0.25rem;
+  }
+  .btn-tertiary::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition:
+      left 0.25s ease,
+      right 0.25s ease;
+  }
+  .btn-tertiary:hover::after {
+    left: 0;
+    right: 0;
+  }
+
+  /* --- Cards --- */
+
+  .card {
+    background-color: var(--color-surface-container-low);
+    border-radius: var(--radius-none);
+    padding: var(--spacing-md);
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+  .card:hover {
+    background-color: var(--color-surface-bright);
+  }
+
+  .card-elevated {
+    background-color: var(--color-surface-container-high);
+    border-radius: var(--radius-none);
+    padding: var(--spacing-md);
+    border: none;
+    box-shadow: var(--shadow-ambient);
+  }
+
+  /* --- Inputs --- */
+
+  .input-field {
+    width: 100%;
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    font-style: italic;
+    padding: 0.75rem 0;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-none);
+    outline: none;
+    transition:
+      border-bottom-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .input-field:focus {
+    border-bottom-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(223, 37, 49, 0.3);
+  }
+
+  .input-label {
+    font-family: var(--font-hud);
+    font-size: var(--text-label-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-dim);
+  }
+
+  /* --- Typography components --- */
+
+  .type-display {
+    font-family: var(--font-display);
+    font-size: var(--text-display-lg);
+    line-height: var(--text-display-lg--line-height);
+    letter-spacing: var(--text-display-lg--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .type-headline {
+    font-family: var(--font-display);
+    font-size: var(--text-headline);
+    line-height: var(--text-headline--line-height);
+    letter-spacing: var(--text-headline--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .type-section-label {
+    font-family: var(--font-hud);
+    font-size: var(--text-label-sm);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .type-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .type-hud {
+    font-family: var(--font-hud);
+    font-size: var(--text-hud);
+    letter-spacing: var(--text-hud--letter-spacing);
+    text-transform: uppercase;
+    color: var(--color-on-surface-muted);
+  }
+}
+
+/* ================================================
+   UTILITY LAYER
+   ================================================ */
+@layer utilities {
+  /* --- Surface utilities --- */
+
+  .surface {
+    background-color: var(--color-surface);
+  }
+  .surface-low {
+    background-color: var(--color-surface-container-low);
+  }
+  .surface-lowest {
+    background-color: var(--color-surface-container-lowest);
+  }
+  .surface-high {
+    background-color: var(--color-surface-container-high);
+  }
+  .surface-void {
+    background-color: var(--color-surface-void);
+  }
+
+  /* --- Signature effects --- */
+
+  .ghost-gradient {
+    background-image: var(--background-image-ghost-gradient);
+  }
+
+  .glassmorphism {
+    background-color: var(--color-glass-overlay);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+  }
+
+  .ignition-glow {
+    border: 1px solid var(--color-primary);
+    box-shadow: var(--shadow-ignition);
+  }
+
+  .ambient-shadow {
+    box-shadow: var(--shadow-ambient);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 12px var(--color-primary);
+  }
+
+  /* --- Layout spacing --- */
+
+  .cinematic-section {
+    padding-top: var(--spacing-2xl); /* 8.5rem */
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  .cinematic-section-md {
+    padding-top: var(--spacing-xl); /* 6rem */
+    padding-bottom: var(--spacing-xl);
+  }
+
+  .tight-block {
+    padding-top: var(--spacing-tight);
+    padding-bottom: var(--spacing-tight);
+  }
+
+  .shutter-void {
+    background-color: var(--color-surface-void);
+  }
+
+  /* --- Text hierarchy helpers --- */
+
+  .text-muted {
+    color: var(--color-on-surface-muted);
+  }
+  .text-dim {
+    color: var(--color-on-surface-dim);
+  }
+  .text-signal {
+    color: var(--color-primary);
+  }
+}
+
+/* ================================================
+   SCROLLBAR — Kinetic Noir custom
+   ================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container-lowest);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-container-high);
+  border-radius: var(--radius-none);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ================================================
+   TEXT SELECTION
+   ================================================ */
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* ================================================
+   ANIMATIONS — Marquee (BrandsMarquee)
+   ================================================ */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  /* Infinite horizontal scroll — duplicated track creates seamless loop */
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Aligns left-edge content to the Container grid when the parent
+     element is intentionally full-width (no Container wrapper).
+     Falls back to px-8 padding on narrow viewports. */
+  .pl-container-align {
+    padding-left: max(2rem, calc((100vw - 1616px) / 2 + 2rem));
+  }
+}

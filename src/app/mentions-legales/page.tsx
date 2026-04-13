@@ -2,16 +2,16 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Réservation — Ares Drive',
+  title: 'Mentions légales — Ares Drive',
 };
 
 /* ======================================================
-   PLACEHOLDER — RÉSERVATION
+   PLACEHOLDER — MENTIONS LÉGALES
    Temporary page to unblock the build.
    Will be replaced with full implementation.
    ====================================================== */
 
-export default function ReservationPage() {
+export default function MentionsLegalesPage() {
   return (
     <main className="min-h-screen bg-[#131313] overflow-hidden">
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-[88px]">
@@ -31,7 +31,7 @@ export default function ReservationPage() {
 
           {/* Page title */}
           <h1 className="font-sans text-white text-[48px] md:text-[64px] uppercase tracking-[0.06em] leading-tight">
-            RÉSERVATION
+            MENTIONS LÉGALES
           </h1>
 
           {/* Separator */}

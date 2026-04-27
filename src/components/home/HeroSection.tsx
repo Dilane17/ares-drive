@@ -24,9 +24,9 @@ export default function HeroSection() {
         {/* ── Left column — text content ─────────────────────────── */}
         <div className="w-full lg:w-1/2 flex flex-col gap-10 lg:pr-16 relative z-10">
 
-          {/* Display heading — Space Grotesk Bold 85px */}
+          {/* Display heading — Space Grotesk Bold 85px (scaled down on mobile) */}
           <h1
-            className="font-[family-name:var(--font-hud)] text-[85px] leading-[1.0] uppercase tracking-[0.025em] font-bold text-white"
+            className="font-[family-name:var(--font-hud)] text-[56px] md:text-[85px] leading-[1.0] uppercase tracking-[0.025em] font-bold text-white"
           >
             LOCATION DE<br />SUPERCARS
           </h1>
@@ -41,11 +41,11 @@ export default function HeroSection() {
           </div>
 
           {/* CTA buttons row */}
-          <div className="flex gap-4 items-center">
-            <Button variant="primary" href="/catalogue">
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <Button variant="primary" href="/catalogue" className="w-full sm:w-auto justify-center">
               EXPLORER LE CATALOGUE
             </Button>
-            <Button variant="secondary" href="/reservation">
+            <Button variant="secondary" href="/reservation" className="w-full sm:w-auto justify-center">
               RÉSERVER
             </Button>
           </div>

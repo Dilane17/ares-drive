@@ -263,7 +263,7 @@ export default function ContactMain() {
               <Heading variant="section-label" as="h3">
                 FORMULAIRE DE CONTACT
               </Heading>
-              <Heading variant="headline" as="h2" className="mt-3 text-[32px]">
+              <Heading variant="headline" as="h2" className="mt-3 text-[24px] md:text-[32px]">
                 ENVOYEZ-NOUS UN MESSAGE
               </Heading>
               <Text italic muted size="sm" className="mt-3">

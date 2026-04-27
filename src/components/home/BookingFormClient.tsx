@@ -41,8 +41,8 @@ Merci de confirmer la disponibilité.`
 
   return (
     <div className="flex flex-col gap-8">
-      {/* ── 2×2 input grid ── */}
-      <div className="grid grid-cols-2 gap-x-8 gap-y-8">
+      {/* ── Responsive input grid ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
 
         {/* Model select — native select styled like Input */}
         <div className="flex flex-col gap-2 w-full">

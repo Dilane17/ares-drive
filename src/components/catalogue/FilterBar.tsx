@@ -26,7 +26,7 @@ type FilterBarProps = {
 
 export default function FilterBar({ onFilter, activeFilter, counts }: FilterBarProps) {
   return (
-    <div data-testid="filter-bar" className="flex flex-wrap gap-2">
+    <div data-testid="filter-bar" className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide md:flex-wrap">
       {FILTERS.map(({ label, value }) => {
         const isActive = activeFilter === value
         const count = counts[value] ?? 0

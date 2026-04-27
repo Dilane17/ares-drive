@@ -26,7 +26,7 @@ export default function LocationSection() {
             Aligned to the container grid via pl-container-align;
             right side bleeds freely toward the map.
             ============================================================ */}
-        <div className="w-full lg:w-[45%] py-[8rem] pl-8 pl-container-align pr-8 lg:pr-16">
+        <div className="w-full lg:w-[45%] py-12 lg:py-[8rem] px-8 lg:pl-container-align lg:pr-16 order-last lg:order-first">
 
           {/* Section header */}
           <Heading variant="section-label" as="h3">
@@ -109,7 +109,7 @@ export default function LocationSection() {
             RIGHT COLUMN — Google Map Embed
             Real map embedded with CSS filter for dark mode.
             ============================================================ */}
-        <div className="w-full lg:w-[55%] min-h-[560px] relative overflow-hidden bg-[#0e0e0e]">
+        <div className="w-full lg:w-[55%] min-h-[350px] lg:min-h-[560px] relative overflow-hidden bg-[#0e0e0e] order-first lg:order-last">
           
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.4764835626927!2d2.30489957691653!3d48.868172900015555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fcc4cdfe195%3A0xe5ad980e12cc92c6!2s24%20Av.%20des%20Champs-%C3%89lys%C3%A9es%2C%2075008%20Paris!5e0!3m2!1sen!2sfr!4v1704250000000!5m2!1sen!2sfr" 

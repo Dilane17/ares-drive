@@ -113,7 +113,7 @@ export default async function FleetPreview() {
         <Container>
 
           {/* Header */}
-          <div className="flex justify-between items-end mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
             <Heading variant="headline" as="h2">Notre Sélection</Heading>
             <Button variant="tertiary" href="/catalogue">
               Consulter tout le catalogue →

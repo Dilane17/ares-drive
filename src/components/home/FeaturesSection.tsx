@@ -100,8 +100,8 @@ export default function FeaturesSection() {
           </Heading>
         </div>
 
-        {/* 3-column grid — tonal spacing as separator, no border lines */}
-        <div className="grid grid-cols-3 gap-8">
+        {/* 3-column grid (responsive) — tonal spacing as separator, no border lines */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {features.map((feature) => (
             <div key={feature.number} className="flex flex-col gap-6">
 

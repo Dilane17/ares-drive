@@ -21,7 +21,7 @@ type VehicleSelectorProps = {
 
 export default function VehicleSelector({ vehicles, selected, onSelect }: VehicleSelectorProps) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {vehicles.map(vehicle => {
         const sortedImages = vehicle.vehicle_images
           ? [...vehicle.vehicle_images].sort((a, b) => a.position - b.position)

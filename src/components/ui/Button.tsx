@@ -22,6 +22,7 @@ const variantClasses: Record<ButtonVariant, string> = {
         'border-none outline-none',
         'transition-shadow duration-200',
         'hover:shadow-[0px_0px_12px_#df2531]',
+        'inline-flex items-center justify-center text-center',
         'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-none',
     ].join(' '),
 
@@ -33,6 +34,7 @@ const variantClasses: Record<ButtonVariant, string> = {
         'font-bold text-xs uppercase tracking-[0.2em]',
         'transition-all duration-200',
         'hover:border-[#df2531] hover:shadow-[0px_0px_8px_rgba(223,37,49,0.3)]',
+        'inline-flex items-center justify-center text-center',
         'disabled:opacity-40 disabled:cursor-not-allowed',
     ].join(' '),
 
@@ -42,6 +44,7 @@ const variantClasses: Record<ButtonVariant, string> = {
         'rounded-none border-none',
         'uppercase tracking-[0.15em] text-xs',
         'btn-tertiary', // CSS animation class in globals.css
+        'inline-flex items-center justify-center text-center',
         'disabled:opacity-40 disabled:cursor-not-allowed',
     ].join(' '),
 };

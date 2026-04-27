@@ -19,7 +19,7 @@ export default function BrandsMarquee() {
   const track = [...BRANDS, ...BRANDS]
 
   return (
-    <div className="bg-[#0e0e0e] border-y border-[#df2531]/10 h-[72px] overflow-hidden relative">
+    <div data-testid="brands-marquee" className="bg-[#0e0e0e] border-y border-[#df2531]/10 h-[72px] overflow-hidden relative">
 
       {/* ---- Scrolling track ---- */}
       <div className="flex items-center h-full animate-marquee w-max">

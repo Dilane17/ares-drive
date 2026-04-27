@@ -106,31 +106,29 @@ export default function LocationSection() {
         </div>
 
         {/* ============================================================
-            RIGHT COLUMN — Map placeholder
-            Dark grid overlay simulates a minimal street map.
-            Inline style used for repeating-linear-gradient (exception).
+            RIGHT COLUMN — Google Map Embed
+            Real map embedded with CSS filter for dark mode.
             ============================================================ */}
-        <div
-          className="w-full lg:w-[55%] min-h-[560px] relative overflow-hidden bg-[#0e0e0e]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(223,37,49,0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(223,37,49,0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        >
-
-          {/* Center location marker */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16">
-            {/* Outer pulse ring */}
-            <div className="absolute inset-0 border border-[#df2531]/40 animate-ping opacity-30" />
-            {/* Inner dot */}
-            <div className="w-4 h-4 bg-[#df2531] shadow-[0px_0px_20px_#df2531]" />
-          </div>
+        <div className="w-full lg:w-[55%] min-h-[560px] relative overflow-hidden bg-[#0e0e0e]">
+          
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.4764835626927!2d2.30489957691653!3d48.868172900015555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fcc4cdfe195%3A0xe5ad980e12cc92c6!2s24%20Av.%20des%20Champs-%C3%89lys%C3%A9es%2C%2075008%20Paris!5e0!3m2!1sen!2sfr!4v1704250000000!5m2!1sen!2sfr" 
+            width="100%" 
+            height="100%" 
+            style={{ 
+              border: 0, 
+              filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%)',
+              position: 'absolute',
+              inset: 0,
+            }} 
+            allowFullScreen={false} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Ares Drive Location"
+          />
 
           {/* Bottom-left location label */}
-          <div className="absolute bottom-8 left-8 bg-[#131313]/80 backdrop-blur-sm px-4 py-3">
+          <div className="absolute bottom-8 left-8 bg-[#131313]/80 backdrop-blur-sm px-4 py-3 pointer-events-none">
             <p className="font-[family-name:var(--font-hud)] font-bold text-[11px] uppercase tracking-[0.15em] text-white">
               PARIS, FRANCE — 75008
             </p>
@@ -140,7 +138,7 @@ export default function LocationSection() {
           </div>
 
           {/* Top-right HUD badge */}
-          <div className="absolute top-6 right-6 bg-[#df2531] px-3 py-1">
+          <div className="absolute top-6 right-6 bg-[#df2531] px-3 py-1 pointer-events-none">
             <span className="font-[family-name:var(--font-hud)] font-bold text-[10px] uppercase tracking-[0.15em] text-white">
               ZONE ACTIVE
             </span>

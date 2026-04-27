@@ -11,7 +11,7 @@ import Button from '@/components/ui/Button';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#131313] flex items-center overflow-hidden">
+    <section data-testid="hero-section" className="relative min-h-screen bg-[#131313] flex items-center overflow-hidden">
 
       {/* Background — centered red radial blur (atmospheric depth) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden>
@@ -19,10 +19,10 @@ export default function HeroSection() {
       </div>
 
       {/* Inner layout — two equal columns */}
-      <div className="max-w-[1616px] mx-auto px-8 w-full flex items-center min-h-screen pt-[88px]">
+      <div className="max-w-[1616px] mx-auto px-8 w-full flex flex-col lg:flex-row items-center min-h-screen pt-[88px]">
 
         {/* ── Left column — text content ─────────────────────────── */}
-        <div className="w-1/2 flex flex-col gap-10 pr-16 relative z-10">
+        <div className="w-full lg:w-1/2 flex flex-col gap-10 lg:pr-16 relative z-10">
 
           {/* Display heading — Space Grotesk Bold 85px */}
           <h1
@@ -52,7 +52,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── Right column — car visual with ambient effects ───────── */}
-        <div className="w-1/2 relative flex items-center justify-center z-10">
+        <div className="w-full lg:w-1/2 relative flex items-center justify-center z-10">
 
           {/* Red ambient glow behind image */}
           <div
@@ -70,7 +70,7 @@ export default function HeroSection() {
           {/* Car image */}
           <div className="relative w-full aspect-[598/584] z-10">
             <Image
-              src="/images/cars/lamborghini-aventador-svj/hero.jpg"
+              src="/images/hero/hero-bg.png"
               alt="Lamborghini Aventador SVJ — Ares Drive"
               fill
               priority

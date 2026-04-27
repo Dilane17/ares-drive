@@ -60,6 +60,7 @@ export default function FAQAccordion() {
 
   return (
     <Section surface="low">
+      <div data-testid="faq-accordion">
       <Container>
 
         {/* ---- Section header ---- */}
@@ -131,6 +132,7 @@ export default function FAQAccordion() {
         </div>
 
       </Container>
+      </div>
     </Section>
   )
 }

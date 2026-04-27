@@ -1,57 +1,50 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
+// ============================================================
+// RESERVATION PAGE
+// Role: server fetches available vehicles, client handles form
+// Data: all available vehicles passed to ReservationForm
+// Design: narrow max-w-[800px] container, centered header
+// ============================================================
+
+import type { Metadata } from 'next'
+import { getAllVehicles } from '@/lib/queries/vehicles'
+import Container from '@/components/layout/Container'
+import Heading from '@/components/ui/Heading'
+import Text from '@/components/ui/Text'
+import ReservationForm from '@/components/reservation/ReservationForm'
 
 export const metadata: Metadata = {
   title: 'Réservation — Ares Drive',
-};
+  description: 'Réservez votre supercar sur WhatsApp. Réponse garantie sous 2h.',
+}
 
-/* ======================================================
-   PLACEHOLDER — RÉSERVATION
-   Temporary page to unblock the build.
-   Will be replaced with full implementation.
-   ====================================================== */
+export default async function ReservationPage() {
+  const all = await getAllVehicles()
+  /* Only available vehicles can be reserved */
+  const availableVehicles = all.filter(v => v.is_available)
 
-export default function ReservationPage() {
   return (
-    <main className="min-h-screen bg-[#131313] overflow-hidden">
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-[88px]">
+    <div className="min-h-screen bg-[#131313] pt-[140px]">
 
-        {/* Red ambient glow — decorative */}
-        <div
-          aria-hidden="true"
-          className="absolute w-[400px] h-[400px] bg-[#df2531] blur-[120px] opacity-[0.06] rounded-full pointer-events-none"
-        />
+      {/* ── Narrow centered container ── */}
+      <div className="max-w-[800px] mx-auto px-8">
 
-        <div className="relative z-10 flex flex-col items-center">
-
-          {/* Eyebrow label */}
-          <p className="font-sans text-[#df2531] text-[11px] uppercase tracking-[0.25em] mb-4">
-            EN COURS DE DÉVELOPPEMENT
-          </p>
-
-          {/* Page title */}
-          <h1 className="font-sans text-white text-[48px] md:text-[64px] uppercase tracking-[0.06em] leading-tight">
-            RÉSERVATION
-          </h1>
-
-          {/* Separator */}
-          <div className="w-[1px] h-[48px] bg-[#df2531] mt-8 mb-8" />
-
-          {/* Description */}
-          <p className="font-body italic text-white/50 text-[17px] leading-relaxed max-w-[440px]">
-            Cette page est en cours de développement.
-            Elle sera disponible très prochainement.
-          </p>
-
-          {/* Back to home */}
-          <Link
-            href="/"
-            className="mt-10 inline-block bg-[#df2531] text-white font-sans text-[11px] uppercase tracking-[0.2em] px-8 py-3 hover:shadow-[0px_0px_12px_#df2531] transition-shadow duration-200"
-          >
-            RETOUR À L&apos;ACCUEIL
-          </Link>
+        {/* ── Header — centered ── */}
+        <div className="text-center pb-16">
+          <Heading variant="section-label" as="h2">RÉSERVATION</Heading>
+          <Heading variant="display" as="h1" className="mt-4">
+            RÉSERVEZ VOTRE SUPERCAR
+          </Heading>
+          <Text italic muted className="mt-6 max-w-[500px] mx-auto">
+            Sélectionnez votre véhicule, choisissez vos dates
+            et envoyez votre demande directement sur WhatsApp.
+            Réponse garantie sous 2 heures.
+          </Text>
         </div>
+
+        {/* ── Multi-step form ── */}
+        <ReservationForm vehicles={availableVehicles} />
+
       </div>
-    </main>
-  );
+    </div>
+  )
 }

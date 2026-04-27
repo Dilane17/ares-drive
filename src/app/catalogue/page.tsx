@@ -1,57 +1,67 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
+// ============================================================
+// CATALOGUE PAGE
+// Role: full fleet listing with category filter
+// Data: all vehicles fetched server-side, passed to client grid
+// Design: display header with stats row, then CarGrid
+// ============================================================
+
+import type { Metadata } from 'next'
+import { getAllVehicles } from '@/lib/queries/vehicles'
+import Container from '@/components/layout/Container'
+import Heading from '@/components/ui/Heading'
+import Text from '@/components/ui/Text'
+import Telemetry from '@/components/ui/Telemetry'
+import CarGrid from '@/components/catalogue/CarGrid'
 
 export const metadata: Metadata = {
   title: 'Catalogue — Ares Drive',
-};
+  description: 'Découvrez notre flotte exclusive de supercars, berlines de luxe et SUV premium disponibles à la location à Paris.',
+}
 
-/* ======================================================
-   PLACEHOLDER — CATALOGUE
-   Temporary page to unblock the build.
-   Will be replaced with full implementation.
-   ====================================================== */
+export default async function CataloguePage() {
+  const vehicles = await getAllVehicles()
 
-export default function CataloguePage() {
+  /* ── Per-category counts for stats row ── */
+  const count = (cat: string) => vehicles.filter(v => v.category === cat).length
+
   return (
-    <main className="min-h-screen bg-[#131313] overflow-hidden">
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-[88px]">
+    <div className="min-h-screen bg-[#131313]">
 
-        {/* Red ambient glow — decorative */}
-        <div
-          aria-hidden="true"
-          className="absolute w-[400px] h-[400px] bg-[#df2531] blur-[120px] opacity-[0.06] rounded-full pointer-events-none"
-        />
+      {/* ── Page header — pt-[140px] accounts for fixed navbar ── */}
+      <section className="bg-[#0e0e0e] pt-[140px] pb-12">
+        <Container>
+          {/* Eyebrow */}
+          <Heading variant="section-label" as="h2">NOS VÉHICULES</Heading>
 
-        <div className="relative z-10 flex flex-col items-center">
+          {/* Title */}
+          <Heading variant="display" as="h1" className="mt-4">
+            LA FLOTTE ARES DRIVE
+          </Heading>
 
-          {/* Eyebrow label */}
-          <p className="font-sans text-[#df2531] text-[11px] uppercase tracking-[0.25em] mb-4">
-            EN COURS DE DÉVELOPPEMENT
-          </p>
+          {/* Subtitle */}
+          <Text italic muted size="md" className="mt-6 max-w-[560px]">
+            Une sélection exclusive de supercars, berlines de luxe
+            et SUV premium disponibles à la location à Paris.
+          </Text>
 
-          {/* Page title */}
-          <h1 className="font-sans text-white text-[48px] md:text-[64px] uppercase tracking-[0.06em] leading-tight">
-            LA FLOTTE
-          </h1>
+          {/* ── Stats row ── */}
+          <div className="flex flex-wrap gap-8 mt-8">
+            <Telemetry label="TOTAL"      value={String(vehicles.length)} />
+            <Telemetry label="SUPERCARS"  value={String(count('supercar'))} />
+            <Telemetry label="SUV"        value={String(count('suv'))} />
+            <Telemetry label="CABRIOLETS" value={String(count('cabriolet'))} />
+            <Telemetry label="BERLINES"   value={String(count('berline'))} />
+          </div>
+        </Container>
+      </section>
 
-          {/* Separator */}
-          <div className="w-[1px] h-[48px] bg-[#df2531] mt-8 mb-8" />
+      {/* ── Vehicle grid ── */}
+      <section className="bg-[#131313] py-16">
+        <Container>
+          <CarGrid vehicles={vehicles} />
+        </Container>
+      </section>
 
-          {/* Description */}
-          <p className="font-body italic text-white/50 text-[17px] leading-relaxed max-w-[440px]">
-            Cette page est en cours de développement.
-            Elle sera disponible très prochainement.
-          </p>
-
-          {/* Back to home */}
-          <Link
-            href="/"
-            className="mt-10 inline-block bg-[#df2531] text-white font-sans text-[11px] uppercase tracking-[0.2em] px-8 py-3 hover:shadow-[0px_0px_12px_#df2531] transition-shadow duration-200"
-          >
-            RETOUR À L&apos;ACCUEIL
-          </Link>
-        </div>
-      </div>
-    </main>
-  );
+    </div>
+  )
 }

@@ -172,42 +172,36 @@ export default function ContactMain() {
             </div>
           </div>
 
-          {/* ── Map placeholder — grid overlay with center pin ── */}
+          {/* ── Map placeholder — replaced with real Google Maps embed ── */}
           <div
-            className="mt-10 relative overflow-hidden h-[240px] bg-surface-container-lowest"
+            className="mt-10 relative overflow-hidden h-[240px] bg-[#0e0e0e]"
           >
-            {/* CSS grid lines overlay — inline style exception (dynamic bg-image) */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  'linear-gradient(rgba(223,37,49,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(223,37,49,0.04) 1px, transparent 1px)',
-                backgroundSize: '32px 32px',
-              }}
-              aria-hidden="true"
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.4764835626927!2d2.30489957691653!3d48.868172900015555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fcc4cdfe195%3A0xe5ad980e12cc92c6!2s24%20Av.%20des%20Champs-%C3%89lys%C3%A9es%2C%2075008%20Paris!5e0!3m2!1sen!2sfr!4v1704250000000!5m2!1sen!2sfr" 
+              width="100%" 
+              height="100%" 
+              style={{ 
+                border: 0, 
+                filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%)',
+                position: 'absolute',
+                inset: 0,
+              }} 
+              allowFullScreen={false} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ares Drive Contact Map"
             />
-
-            {/* Center map marker */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Ping ring */}
-              <span
-                aria-hidden="true"
-                className="absolute w-8 h-8 border border-primary/40 animate-ping opacity-40"
-              />
-              {/* Solid dot */}
-              <span className="w-3 h-3 bg-primary" />
-            </div>
 
             {/* Bottom address label */}
             <p
-              className="absolute bottom-4 left-4 text-[10px] font-bold uppercase tracking-[0.15em] text-white/60"
+              className="absolute bottom-4 left-4 text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 pointer-events-none"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               PARIS 75008 — CHAMPS-ÉLYSÉES
             </p>
 
             {/* Top-right status badge */}
-            <div className="absolute top-4 right-4 bg-primary px-2 py-1">
+            <div className="absolute top-4 right-4 bg-primary px-2 py-1 pointer-events-none">
               <span
                 className="text-[9px] font-bold uppercase tracking-widest text-white"
                 style={{ fontFamily: 'var(--font-sans)' }}
@@ -263,7 +257,7 @@ export default function ContactMain() {
             </div>
           ) : (
             /* ── Contact form ── */
-            <form onSubmit={handleSubmit} noValidate>
+            <form data-testid="contact-form" onSubmit={handleSubmit} noValidate>
 
               {/* Form header */}
               <Heading variant="section-label" as="h3">

@@ -66,10 +66,10 @@ export default function ContactBento() {
           >
             {/* Background photo — lamborghini hero */}
             <Image
-              src="/images/cars/lamborghini-aventador-svj/hero.jpg"
+              src="/images/cars/SVJ.jpeg"
               alt="Voir le catalogue Ares Drive"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="object-cover transition-transform duration-700 group-hover:scale-110" 
               sizes="(max-width: 768px) 100vw, 33vw"
             />
 
@@ -104,7 +104,7 @@ export default function ContactBento() {
           >
             {/* Background photo — ferrari */}
             <Image
-              src="/images/cars/ferrari-296-gtb.jpg"
+              src="/images/cars/ferrari-296-gtb.png"
               alt="Découvrir les expériences Ares Drive"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-110"

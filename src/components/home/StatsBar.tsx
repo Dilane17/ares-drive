@@ -7,7 +7,7 @@
 
 export default function StatsBar() {
   return (
-    <div className="w-full bg-[#1a1a1a] py-12">
+    <div data-testid="stats-bar" className="w-full bg-[#1a1a1a] py-12">
       <div className="max-w-[1616px] mx-auto px-8">
 
         {/* Stats row — flex, centered, dividers between items */}

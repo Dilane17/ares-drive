@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Cardo, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ConditionalNav from "@/components/layout/ConditionalNav";
 
 
 // ── Google Fonts ─────────────────────────────────────────────────────────────
@@ -43,9 +42,7 @@ export default function RootLayout({
       className={`${cardo.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <Navbar />
-        <main className="flex-1 flex flex-col">{children}</main>
-        <Footer />
+        <ConditionalNav>{children}</ConditionalNav>
       </body>
     </html>
   );

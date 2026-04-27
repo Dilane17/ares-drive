@@ -1,61 +1,81 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
+// ============================================================
+// VEHICLE DETAIL PAGE
+// Role: full vehicle showcase — hero, gallery, specs, booking
+// Data: vehicle fetched by slug, all vehicles for similar section
+// Design: cinematic hero → 2-col (content | sticky booking card)
+//         → similar vehicles strip
+// ============================================================
 
-export const metadata: Metadata = {
-  title: 'Véhicule — Ares Drive',
-};
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getAllVehicles, getVehicleBySlug } from '@/lib/queries/vehicles'
+import Container from '@/components/layout/Container'
+import VehicleHero from '@/components/vehicle/VehicleHero'
+import VehicleGallery from '@/components/vehicle/VehicleGallery'
+import VehicleSpecs from '@/components/vehicle/VehicleSpecs'
+import VehicleDescription from '@/components/vehicle/VehicleDescription'
+import BookingCard from '@/components/vehicle/BookingCard'
+import SimilarVehicles from '@/components/vehicle/SimilarVehicles'
 
-/* ======================================================
-   PLACEHOLDER — VÉHICULE DÉTAIL
-   Temporary page to unblock the build.
-   Will be replaced with full implementation.
-   ====================================================== */
-
-export async function generateStaticParams() {
-  return [];
+interface Props {
+  params: Promise<{ slug: string }>
 }
 
-export default function VehicleDetailPage() {
+/* ── Pre-generate routes for all vehicles at build time ── */
+export async function generateStaticParams() {
+  const vehicles = await getAllVehicles()
+  return vehicles.map(v => ({ slug: v.slug }))
+}
+
+/* ── Dynamic metadata ── */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug)
+  return {
+    title: vehicle
+      ? `${vehicle.name} — Ares Drive`
+      : 'Véhicule — Ares Drive',
+    description: vehicle?.description ?? vehicle?.tagline ?? undefined,
+  }
+}
+
+export default async function VehicleDetailPage({ params }: Props) {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug)
+
+  /* 404 if slug doesn't exist */
+  if (!vehicle) notFound()
+
   return (
-    <main className="min-h-screen bg-[#131313] overflow-hidden">
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-[88px]">
+    <div className="min-h-screen bg-[#131313]">
 
-        {/* Red ambient glow — decorative */}
-        <div
-          aria-hidden="true"
-          className="absolute w-[400px] h-[400px] bg-[#df2531] blur-[120px] opacity-[0.06] rounded-full pointer-events-none"
-        />
+      {/* ── Cinematic hero — extends under transparent navbar ── */}
+      <VehicleHero vehicle={vehicle} />
 
-        <div className="relative z-10 flex flex-col items-center">
+      {/* ── Two-column content layout ── */}
+      <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 py-16">
 
-          {/* Eyebrow label */}
-          <p className="font-sans text-[#df2531] text-[11px] uppercase tracking-[0.25em] mb-4">
-            EN COURS DE DÉVELOPPEMENT
-          </p>
+          {/* Left column — gallery → specs → description */}
+          <div>
+            <VehicleGallery images={vehicle.vehicle_images ?? []} />
+            <VehicleSpecs vehicle={vehicle} />
+            <VehicleDescription vehicle={vehicle} />
+          </div>
 
-          {/* Page title */}
-          <h1 className="font-sans text-white text-[48px] md:text-[64px] uppercase tracking-[0.06em] leading-tight">
-            DÉTAIL VÉHICULE
-          </h1>
+          {/* Right column — sticky booking card */}
+          <div className="relative">
+            <div className="lg:sticky lg:top-[108px]">
+              <BookingCard vehicle={vehicle} />
+            </div>
+          </div>
 
-          {/* Separator */}
-          <div className="w-[1px] h-[48px] bg-[#df2531] mt-8 mb-8" />
-
-          {/* Description */}
-          <p className="font-body italic text-white/50 text-[17px] leading-relaxed max-w-[440px]">
-            Cette page est en cours de développement.
-            Elle sera disponible très prochainement.
-          </p>
-
-          {/* Back to home */}
-          <Link
-            href="/"
-            className="mt-10 inline-block bg-[#df2531] text-white font-sans text-[11px] uppercase tracking-[0.2em] px-8 py-3 hover:shadow-[0px_0px_12px_#df2531] transition-shadow duration-200"
-          >
-            RETOUR À L&apos;ACCUEIL
-          </Link>
         </div>
-      </div>
-    </main>
-  );
+      </Container>
+
+      {/* ── Similar vehicles strip ── */}
+      <SimilarVehicles currentSlug={vehicle.slug} category={vehicle.category} />
+
+    </div>
+  )
 }

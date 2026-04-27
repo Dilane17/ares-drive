@@ -39,9 +39,17 @@ export default function Navbar() {
 
                 {/* Liens — desktop */}
                 <div className="hidden md:flex gap-[48px]">
-                    {NAV_LINKS.map(link => (
-                        <NavLink key={link.href} href={link.href}>{link.label}</NavLink>
-                    ))}
+                    {NAV_LINKS.map(link => {
+                        const isActive = link.href === '/' 
+                            ? pathname === '/' 
+                            : pathname.startsWith(link.href);
+                        
+                        return (
+                            <NavLink key={link.href} href={link.href} active={isActive}>
+                                {link.label}
+                            </NavLink>
+                        )
+                    })}
                 </div>
 
                 {/* CTA Button */}

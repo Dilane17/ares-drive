@@ -4,27 +4,33 @@
 // Uses the SSR client to properly manage session cookies
 // ============================================================
 
-'use server'
+"use server";
 
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
-import { isAdminUser } from '@/lib/auth/is-admin-user'
+import { isAdminUser } from "@/lib/auth/is-admin-user";
+import type { User } from "@supabase/supabase-js";
+import type { MaybeRoleUser } from "@/lib/auth/is-admin-user";
 
 export async function loginAction(
   email: string,
-  password: string
+  password: string,
 ): Promise<{ error?: string; success?: boolean }> {
-  const supabase = await createClient()
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+  if (error || !data.user) return { error: "Email ou mot de passe incorrect." };
 
-  if (error || !data.user) return { error: 'Email ou mot de passe incorrect.' }
-
-  if (!isAdminUser(data.user)) {
+  if (!isAdminUser(data.user as unknown as MaybeRoleUser)) {
     // Si l'utilisateur n'est pas un administrateur, on le déconnecte tout de suite
-    await supabase.auth.signOut()
-    return { error: "Accès refusé : vous n'avez pas les droits d'administration." }
+    await supabase.auth.signOut();
+    return {
+      error: "Accès refusé : vous n'avez pas les droits d'administration.",
+    };
   }
 
   // Ne PAS appeler redirect() ici.
@@ -33,11 +39,11 @@ export async function loginAction(
   // navigation. Si on appelle redirect() côté serveur, le middleware reçoit le
   // GET /admin avant que le browser ait stocké les cookies → redirige vers login.
   // La redirection est donc déléguée au client via router.push().
-  return { success: true }
+  return { success: true };
 }
 
 export async function logoutAction(): Promise<void> {
-  const supabase = await createClient()
-  await supabase.auth.signOut()
-  redirect('/admin/login')
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/admin/login");
 }

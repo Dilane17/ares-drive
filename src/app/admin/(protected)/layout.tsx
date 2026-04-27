@@ -7,13 +7,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { isAdminUser } from '@/lib/auth/is-admin-user'
+import { isAdminUser, type MaybeRoleUser } from '@/lib/auth/is-admin-user'
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!isAdminUser(user)) redirect('/admin/login')
+  if (!isAdminUser(user as unknown as MaybeRoleUser)) redirect('/admin/login')
 
   return (
     <div className="flex min-h-screen">

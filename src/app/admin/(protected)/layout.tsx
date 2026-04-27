@@ -12,7 +12,6 @@ import { isAdminUser, type MaybeRoleUser } from '@/lib/auth/is-admin-user'
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-
   if (!isAdminUser(user as unknown as MaybeRoleUser)) redirect('/admin/login')
 
   return (

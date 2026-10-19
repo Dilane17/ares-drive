@@ -4,6 +4,8 @@ Site de location de voitures de luxe — Next.js 16, Supabase, Cloudinary, Resen
 
 📖 Étude de cas détaillée : [Ares Drive sur dylan-dev.me](https://www.dylan-dev.me/projects/ares-drive) — par [Clovis Ahouandjinou](https://www.dylan-dev.me), développeur front-end freelance.
 
+💼 Besoin d'un site similaire ? [Développeur Next.js freelance](https://www.dylan-dev.me/services/developpeur-nextjs-freelance-europe-afrique) · [Création de site vitrine et landing page](https://www.dylan-dev.me/services/creation-site-vitrine-landing-page-freelance) · [Blog](https://www.dylan-dev.me/blog)
+
 ---
 
 ## Stack technique
